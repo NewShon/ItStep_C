@@ -58,6 +58,7 @@ int main()
 	cin >> str;
 	if (check(str)) cout<<"Is right";
 	else cout << "Is wrong";
+	//cout << boolalpha << check(str); выводит true false вместо 0 1
 
 	cout << endl;
 	system("pause");
