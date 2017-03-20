@@ -17,6 +17,7 @@ char pop(LIFO **top)//второй вариант написания функц�
 	LIFO *cur = *top;
 	if (*top == NULL) return 0;
 	temp = (*top)->data;
+	*top = cur->prev;
 	free(cur);
 	return temp;
 }
