@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
-#include <algorithm>
 using namespace std;
 
 const int size = 20;
@@ -28,30 +27,8 @@ char pop(LIFO *st)
 
 	return st->stack[--st->top];
 }
-bool check(char *str)
-{
-	bool flag = true;
-	LIFO st;
-	st.top = 0;
 
-	int i = 0;
-	while (str[i])
-	{
-		if (str[i] == '(')
-			push(&st, str[i]);
 
-		else if (str[i] == ')')
-		{
-			if (st.top != 0) pop(&st);
-			else flag = false;
-		}
-		i++;
-	}
-	
-	if (st.top != 0) flag = false;
-
-	return flag;
-}
 char maxx(char a, char b)
 {
 	if (a > b) return a;
@@ -62,6 +39,8 @@ char minn(char a, char b)
 	if (a < b) return a;
 	else return b;
 }
+
+
 char ex2(char *str)
 {
 	LIFO st;
@@ -92,6 +71,7 @@ char ex2(char *str)
 	}
 	return st.stack[st.top-1];
 }
+
 int main()
 {
 	char str[100];
