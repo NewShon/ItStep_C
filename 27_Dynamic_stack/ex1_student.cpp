@@ -1,0 +1,137 @@
+/*Создать структуру данных студент с полями:
+ФИО 
+ ГРУППА 
+ НОМЕР ЗАЧЕТКИ 
+Массив оценок
+В массиве структур имеется следующая информация о студентах:
+Иванов 4  456345   5 3 10
+Петров  4  456348   4 8 4
+Иванова  5 456340   5 3 5
+Петрова  5 456349   4 5 4
+Составить программу получения:
+•	среднего балла каждого студента
+•	общего среднего балла
+•	общего списка, состоящего из фамилии, номера группы, номера зачетки, среднего балла.
+•	списка отличников, состоящего из фамилии, номера группы, номера зачетки 
+•	списка имеющих неудовлетворительные  оценки, состоящего из фамилии, номера группы, номера зачетки
+•	Для проверки результатов информацию созданных списков вывести на экран.*/
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+const int size = 3;
+struct Student
+{
+	char FIO[40];
+	short group;
+	unsigned long num_zuch;
+	int marks[3];
+};
+
+Student read()
+{
+	Student student;
+
+	cout << "Input FIO: ";
+	cin.getline(student.FIO, 40);
+
+	cout << "Input group: ";
+	cin >> student.group;
+
+	cout << "Input num_zach: ";
+	cin >> student.num_zuch;
+
+	cout << "Input  3 marks: ";
+	for (int i = 0; i < 3; i++)
+		cin >> student.marks[i];
+
+	cin.get();
+	return student;
+}
+
+void output(Student student)
+{
+	cout << "Student: " << student.FIO << " ";
+	cout << student.group << " ";
+	cout << student.num_zuch << " ";
+	for (int i = 0; i < 3; i++)
+		cout << student.marks[i] << " ";
+}
+
+float avg(Student student)
+{
+	float sred = 0;
+	for (int i = 0; i < 3; i++)
+		sred += student.marks[i];
+
+	return sred / 3;
+}
+
+float whole_avg(Student *student, int size)
+{
+	float w_sred = 0;
+	for (int i = 0; i < size; i++)
+		w_sred += avg(student[i]);
+
+	return w_sred / size;
+}
+
+bool otlichniki(Student student)
+{
+	bool flag = 1;
+	for (int i = 0; i < 3; i++)
+		if (student.marks[i] < 9) flag = 0;
+
+	return flag;
+}
+
+void change_marks(Student *student, char *name)
+{
+	if (strcmp(name, student->FIO) == 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			cout << "Input " << i + 1 << "mark: ";
+			cin >> student->marks[i];
+		}
+	}
+}
+
+int main()
+{
+	Student student[size];
+
+	for (int i = 0; i < size; i++)
+		student[i] = read();
+
+	for (int i = 0; i < size; i++)
+	{
+		output(student[i]);
+		cout << " " << avg(student[i]) << endl;
+	}
+
+	cout << "Whole avg: " << whole_avg(student, size);
+
+	cout << "Good boys: ";
+	for (int i = 0; i < size; i++)
+	{
+		if (otlichniki(student[i]))
+			cout << student[i].FIO << " ";
+	}
+
+	cout << "Input student for changing marks: ";
+	char st[20]; cin >> st;
+	for (int i = 0; i < size; i++)
+		change_marks(&student[i], st);
+
+	for (int i = 0; i < size; i++)
+		output(student[i]);
+
+
+	cout << endl;
+	system("pause");
+	return 0;
+}
