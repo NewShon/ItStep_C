@@ -1,47 +1,86 @@
-struct Node//Создание звена(узла) цепи
+#include<iostream>
+using namespace std;
+struct Node
 {
-	int data;//данные в узле
-	Node *next;//указатель на следующий узел
+	int data;
+	Node*next;
 };
-struct FIFO//Объявление очереди
+Node *insert(Node *head, int value,int pos)
 {
-	Node *head; //указатель на первый элемент
-	Node *tail;//указатель на последний элемент
-};
+	Node* cur = (Node*)malloc(sizeof(Node));
+	cur->data = value;
+	cur->next = NULL;
+	if (pos == 0)//добавление элемента в начало списка
+	{
 
-void init(FIFO*q)//Иницилизация очереди(создание пустой очереди)
-{
-	q->head = NULL;
-	q->tail = NULL;
+		cur->next = head;//указатель нового элемента направляем на голову списка
+		head = cur;//смещение головы
+		return head;
+	}
+	Node *element = head;//создали вспомогательный элемент для продвижения по списку
+	for (int i = 0; i < pos&&element;
+		i++, element = element->next);//поиск позиции для вставки
+	if (element)//проверка на допустимость позиции
+	{
+		cur->next = element->next;//присвоение новому элементу указателя на элемент после него в списке
+		element->next = cur;//присвоение предыдущему элементу указателя на новый элемент
+	}
+	else cout << " Error!!!";
+	return head;	
 }
-
-FIFO push(FIFO q, int value)
+void print(Node *head)
 {
-	Node *cur = (Node *)malloc(sizeof(Node));//Создает узел
-	cur->data = value;//Сохраняем данные в новый узел
-	cur->next = NULL;//Задаем указатель
-
-	if (q.tail)//проверка, есть ли элементы  вочереди
-		q.tail->next = cur;//переместили указатель с NULL на новый элемент cur
-
-	q.tail = cur;//присвоили хвосту добавленный элемент
-
-	if (q.head == NULL)//если в очереди ничего нет(срабатывает только в самом начале, когда очередь пуста)
-		q.head = q.tail;//то изменяем голову в очереди
-
-	return q;
+	while (head)
+	{
+		cout << head->data<<" ";
+		head = head->next;
+	}
 }
-
-int pop(FIFO *q)
+void remove(Node **head, int value)
 {
-	if (q->head == NULL)//если очередь пуста, выходим из функции
-		return 0;
-
-	Node *cur = q->head;//создаем копию головы
+	Node *cur = *head, *prev = NULL;
+	while (cur->data != value&&cur)//поиск элемента по значению||конца списка
+	{
+		prev = cur;//сохраняем текущий элемент
+		cur = cur->next;//переход к следующему элементу
+	}
+	if (cur)//если нашли 
+	{
+		if (prev) //если перед ним  есть предыдущий
+			prev->next = cur->next;//переставляем указатель из предыдущего элемента на следующий за удаляемым
+		else //если удаляем первый
+			*head = cur->next; //изменяем голову списка на следующий за удаляемым
+		free(cur);
+		return;
+	}
+	if (*head) cout << "Element not found" << endl;
+	else cout << "List is empty" << endl;
 	
-	int temp =q->head->data;//копируем данные из головы в темп     q->head обращение к структуре Node   а потом обращаемся к элементу структуры data
-	q->head = cur->next;//перемеещние головы на следующий элемент
-
-	free(cur);//удаляем узел
-	return temp;
 }
+
+int main()
+{
+	setlocale(0, "");
+	Node *list = NULL;
+	list = insert(list, 10, 0);
+	list = insert(list, 20, 0);
+	list = insert(list, 11, 1);
+	print(list);
+	cout << endl;
+	list = insert(list, 100, 1);
+	list = insert(list, 201, 1);
+	list = insert(list, 113, 1);
+	print(list);
+	cout << endl;
+	remove(&list, 100);
+	print(list);
+	cout << endl;
+	remove(&list, 20);
+	print(list);
+	cout << endl;
+	remove(&list, 11);
+	print(list);
+	cout << endl;
+	return 0;
+}
+
