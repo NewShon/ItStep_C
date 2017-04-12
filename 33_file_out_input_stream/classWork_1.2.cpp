@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 
-
 int main(){
 	
+	//Чтение в переменные
 	FILE *in;
 	int a, b;
 
@@ -20,7 +20,7 @@ int main(){
 	printf("sum = %d\n", sum);
 
 
-
+	//Запись из переменных
 	FILE *out;
 	if (!(out = fopen("output.txt", "w"))){//при записи, файл создается сам
 		printf("Чёто пошло не так.\n");
@@ -30,6 +30,5 @@ int main(){
 	fprintf(out, "sum = %d\n", sum);
 	fclose(out);
 
-
-		return 0;
+	return 0;
 }
