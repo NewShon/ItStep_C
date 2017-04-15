@@ -17,7 +17,7 @@ int main()
 	case '+': result = a + b; break;
 	case '-': result = a - b; break;
 	}
-	cout << "Result = " << result;
+	cout << "Result = " << result << endl;
 
 	for (int i = 31; i >= 0; --i)
 	{
