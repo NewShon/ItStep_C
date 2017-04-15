@@ -23,7 +23,7 @@ int main()
 	case '-': result = a-b; break;
 	}
 	
-	cout << "Result = " << result;
+	cout << "Result = " << result << endl;
 	
 	int number; cout << "\nInput number of byte (0-3): "; cin >> number;
 	int new_result = ((255 << (3 - number) * 8)&result) >> ((3 - number) * 8);
