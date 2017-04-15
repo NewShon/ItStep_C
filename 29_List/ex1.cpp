@@ -211,11 +211,12 @@ Client *ClientDeliteFIO(Client *cl)
 }
 Client *ClientDeliteID(Client *cl)
 {
-	char name[30];
-	cin >> name;
+	int id;
+	cout<<"Enter id: ";
+	cin >> id;
 	Client *cur = cl;
 
-	if (name, cur->id == 0)
+	if (id ==  cur->id)
 	{
 		Client *temp = cur->next;
 		free(cur);
@@ -224,7 +225,7 @@ Client *ClientDeliteID(Client *cl)
 
 	while (cur)
 	{
-		if (name, cur->next->id == 0)
+		if (id ==  cur->next->id)
 		{
 			Client *temp = cur->next;
 			cur->next = cur->next->next;
