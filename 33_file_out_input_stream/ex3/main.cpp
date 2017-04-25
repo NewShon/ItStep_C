@@ -28,21 +28,13 @@ int main()
 
 	fprintf(out, "Whole avg: %0.2f", whole_avg(student, size));
 
-	//cout << "Good boys: ";
-	//for (int i = 0; i < size; i++)
-	//{
-	//	if (otlichniki(student[i]))
-	//		cout << student[i].FIO << " ";
-	//}
-
-	//cout << "Input student for changing marks: ";
-	//char st[20]; cin >> st;
-	//for (int i = 0; i < size; i++)
-	//	change_marks(&student[i], st);
-
-	//for (int i = 0; i < size; i++)
-	//	output(student[i]);
-
+	fprintf(out, "\n\nGood Boys:\n");
+	for (int i = 0, j = 1; i < size; i++)
+		if (otlichniki(student[i])){
+			fprintf(out, "%d. %s\n", j, student[i].FIO);
+			j++;
+		}
+	
 	return 0;
 }
 
