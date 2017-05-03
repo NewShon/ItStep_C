@@ -1,3 +1,5 @@
+//Дан код программы на С++.  Вывести  все операции и частоту их использования в программе.
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<cstring>
